@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal interface IBuildMode
+    internal class Properties
     {
-        public RightTriangleData Build(RightTriangleData data);
+        public static int DecimalAccuracy = 3;
     }
 }

@@ -8,6 +8,6 @@ namespace RightTriangles
 {
     internal interface IBuildModeCondition
     {
-        public IBuildMode? CheckCondition();
+        public bool CheckCondition(RightTriangleData data);
     }
 }
