@@ -41,7 +41,7 @@ namespace RightTriangles
             };
             RightTriangleData hypAdjacentLeg = new RightTriangleData()
             {
-                Hypotenuse = 40,
+                Hypotenuse = 20,
                 AdjacentLeg = 10
             };
 
@@ -68,25 +68,57 @@ namespace RightTriangles
 
             RightTriangleValidator validator = new RightTriangleValidator();
             BuildModeSelector modeSelector = new BuildModeSelector(buildModes);
+            //for (int i = 0; i < rightTriangleDatas.Length; i++)
+            //{
+            //    RightTriangleData data = rightTriangleDatas[i];
 
-            for (int i = 0; i < rightTriangleDatas.Length; i++)
+            //    IBuildModeConditionContaining mode = modeSelector.CheckConditions(data);
+            //    RightTriangleData builtData = mode.Build(data);
+            //    validationsForDatas[i] = validator.Validate(builtData);
+
+            //    Label l = new Label()
+            //    {
+            //        Text = validationsForDatas[i].ToString(),
+            //        ForeColor = validationsForDatas[i] == true ? Color.Green : Color.Red,
+            //        Font = new Font("Arial", 40),
+            //        AutoSize = true,
+            //        Location = new Point(0, 0 + 50 * i)
+            //    };
+            //    Controls.Add(l);
+            //}
+            RightTriangleData currentData = oppositeLegAngle;
+            Label currentDataLabel = new Label()
             {
-                RightTriangleData data = rightTriangleDatas[i];
+                Location = new Point(0, 0),
+                Text = $"Given Data:\nHypotenuse: {currentData.Hypotenuse}\nAdjacent Leg: {currentData.AdjacentLeg}\nOpposite Leg: {currentData.OppositeLeg}\nAngle Alpha: {currentData.AngleAlpha}\nAngle Beta: {currentData.AngleBeta}",
+                AutoSize = true,
+            };
 
-                IBuildModeConditionContaining mode = modeSelector.CheckConditions(data);
-                RightTriangleData builtData = mode.Build(data);
-                validationsForDatas[i] = validator.Validate(builtData);
+            IBuildModeConditionContaining mode = modeSelector.CheckConditions(currentData);
+            Label currentModeLabel = new Label()
+            {
+                Location = new Point(0, 100),
+                Text = mode.GetType().Name,
+                AutoSize = true,
+            };
 
-                Label l = new Label()
-                {
-                    Text = validationsForDatas[i].ToString(),
-                    ForeColor = validationsForDatas[i] == true ? Color.Green : Color.Red,
-                    Font = new Font("Arial", 40),
-                    AutoSize = true,
-                    Location = new Point(0, 0 + 50 * i)
-                };
-                Controls.Add(l);
-            }
+            RightTriangleData builtData = mode.Build(currentData);
+            Label builtDataLabel = new Label()
+            {
+                Location = new Point(0, 130),
+                Text = $"Built Data:\nHypotenuse: {builtData.Hypotenuse}\nAdjacent Leg: {builtData.AdjacentLeg}\nOpposite Leg: {builtData.OppositeLeg}\nAngle Alpha: {builtData.AngleAlpha}\nAngle Beta: {builtData.AngleBeta}",
+                AutoSize = true,
+            };
+
+            bool validated = validator.Validate(builtData);
+            Label validatedLabel = new Label()
+            {
+                Location = new Point(0, 230),
+                Text = $"Built Data validated? " + (validated ? "Yes" : "No"),
+                AutoSize = true,
+            };
+
+            Controls.AddRange(new Control[] { currentDataLabel, currentModeLabel, builtDataLabel, validatedLabel });
             InitializeComponent();
         }
     }
