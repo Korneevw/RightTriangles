@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal interface IBuildModeCondition
+    internal interface IRightTriangleDrawer
     {
-        public bool CheckCondition(RightTriangleData data);
+        public void Draw(RightTriangleData data, Graphics g, Point drawPosition);
     }
 }

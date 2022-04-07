@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class BuildModeSelector
+    internal class BuildModeSelector : IBuildModeSelector
     {
-        private IBuildModeConditionContaining[] _modes;
-        public BuildModeSelector(IBuildModeConditionContaining[] modes) => _modes = modes;
-        public IBuildModeConditionContaining CheckConditions(RightTriangleData data)
+        private IBuildMode[] _modes;
+        public BuildModeSelector(IBuildMode[] modes) => _modes = modes;
+        public IBuildMode SelectMode(RightTriangleData data)
         {
-            foreach (IBuildModeConditionContaining mode in _modes)
+            foreach (IBuildMode mode in _modes)
             {
                 bool result = mode.CheckCondition(data);
                 if (result == true)

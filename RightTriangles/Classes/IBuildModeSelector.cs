@@ -6,5 +6,8 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal interface IBuildModeConditionContaining : IBuildModeCondition, IBuildMode { }
+    internal interface IBuildModeSelector
+    {
+        public IBuildMode SelectMode(RightTriangleData data);
+    }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class HypotenuseOppositeLegBuildMode : IBuildModeConditionContaining
+    internal class HypotenuseOppositeLegBuildMode : IBuildMode
     {
         public bool CheckCondition(RightTriangleData data)
         {
