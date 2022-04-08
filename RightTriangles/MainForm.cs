@@ -17,6 +17,7 @@ namespace RightTriangles
         private RightTriangleData _currentData;
         protected override void OnPaint(PaintEventArgs e)
         {
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             _drawer?.Draw(_currentData, e.Graphics, new Point(100, 100));
             base.OnPaint(e);
         }
@@ -35,11 +36,11 @@ namespace RightTriangles
             RightTriangleData adjacentLegOppositeLeg = new RightTriangleData()
             {
                 AdjacentLeg = 300,
-                OppositeLeg = 400
+                OppositeLeg = 500
             };
             RightTriangleData hypAngle = new RightTriangleData()
             {
-                Hypotenuse = 100,
+                Hypotenuse = 300,
                 AngleAlpha = Math.PI / 6
             };
             RightTriangleData hypOppositeLeg = new RightTriangleData()
@@ -49,8 +50,8 @@ namespace RightTriangles
             };
             RightTriangleData hypAdjacentLeg = new RightTriangleData()
             {
-                Hypotenuse = 20,
-                AdjacentLeg = 10
+                Hypotenuse = 200,
+                AdjacentLeg = 100
             };
 
             RightTriangleData[] rightTriangleDatas = new RightTriangleData[]
@@ -128,8 +129,8 @@ namespace RightTriangles
 
             //Controls.AddRange(new Control[] { currentDataLabel, currentModeLabel, builtDataLabel, validatedLabel });
 
-            _drawer = new ColoredRightTriangleDrawer(new Font("Georgia", 20, FontStyle.Italic), Pens.Red, Pens.Green, Pens.Blue);
-            _currentData = modeSelector.SelectMode(adjacentLegOppositeLeg).Build(adjacentLegOppositeLeg);
+            _drawer = new ColoredRightTriangleDrawer(new Pen(Color.Red, 5), new Pen(Color.Green, 5), new Pen(Color.Blue, 5));
+            _currentData = modeSelector.SelectMode(hypAdjacentLeg).Build(hypAdjacentLeg);
             InitializeComponent();
         }
     }

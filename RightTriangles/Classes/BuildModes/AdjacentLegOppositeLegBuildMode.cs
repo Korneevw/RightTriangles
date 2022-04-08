@@ -18,7 +18,7 @@ namespace RightTriangles
         }
         public RightTriangleData Build(RightTriangleData data)
         {
-            double angleAlpha = Math.Atan(data.AdjacentLeg / data.OppositeLeg);
+            double angleAlpha = Math.Atan(data.OppositeLeg / data.AdjacentLeg);
             double hypotenuse = Math.Sqrt(Math.Pow(data.AdjacentLeg, 2) + Math.Pow(data.OppositeLeg, 2));
             double adjacentLeg = data.AdjacentLeg;
             double oppositeLeg = data.OppositeLeg;
