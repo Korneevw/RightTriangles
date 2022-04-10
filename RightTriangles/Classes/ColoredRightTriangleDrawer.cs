@@ -23,34 +23,47 @@ namespace RightTriangles
         {
             _validator = validator;
         }
-        public void Draw(RightTriangleData data, Graphics g, Point drawPosition) // Отрефакторить!!! УЖОС
+        public void Draw(RightTriangleData data, Graphics g, Point drawPosition)
         {
             if (_validator.Validate(data) == false) throw new ArgumentException("Given right triangle data is not valid."); // May affect perfomance?
-            g.DrawArc(
+            Rectangle alphaArcRect = 
+                new Rectangle(new Point((int)Math.Round(drawPosition.X - data.Hypotenuse / 8), (int)Math.Round(drawPosition.Y + data.OppositeLeg - data.Hypotenuse / 8)), 
+                new Size((int)Math.Round(data.Hypotenuse / 8 * 2), (int)Math.Round(data.Hypotenuse / 8 * 2)));
+            g.DrawArc( // Angle alpha arc
                 Pens.Black, 
-                new Rectangle(new Point(drawPosition.X - (int)data.AdjacentLeg / 5, drawPosition.Y + (int)data.OppositeLeg - (int)data.AdjacentLeg / 5), 
-                              new Size((int)data.AdjacentLeg / 5 * 2, (int)data.AdjacentLeg / 5 * 2)), 
-                -(int)(data.AngleAlpha * (180 / Math.PI)), (int)(data.AngleAlpha * (180 / Math.PI)));
-            g.DrawLine(
+                alphaArcRect,
+                -(int)(data.AngleAlpha * (180 / Math.PI)), 
+                (int)(data.AngleAlpha * (180 / Math.PI)));
+            Rectangle betaArcRect =
+                new Rectangle(new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg - data.Hypotenuse / 8), (int)Math.Round(drawPosition.Y - data.Hypotenuse / 8)),
+                new Size((int)Math.Round(data.Hypotenuse / 8 * 2), (int)Math.Round(data.Hypotenuse / 8 * 2)));
+            g.DrawArc( // Angle beta arc
+                Pens.Black,
+                betaArcRect,
+                90,
+                (int)(data.AngleBeta * (180 / Math.PI)));
+            g.DrawLine( // Adjacent leg
                 _adjLegPen, 
-                new PointF(drawPosition.X, drawPosition.Y + (float)data.OppositeLeg), 
-                new PointF(drawPosition.X + (float)data.AdjacentLeg, drawPosition.Y + (float)data.OppositeLeg));
-            g.DrawLine(
+                new Point(drawPosition.X, (int)Math.Round(drawPosition.Y + data.OppositeLeg)), 
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg), (int)Math.Round(drawPosition.Y + data.OppositeLeg)));
+            g.DrawLine( // Opposite leg
                 _oppLegPen, 
-                new PointF(drawPosition.X + (float)data.AdjacentLeg, drawPosition.Y + (float)data.OppositeLeg), 
-                new PointF(drawPosition.X + (float)data.AdjacentLeg, drawPosition.Y));
-            g.DrawLine(
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg), (int)Math.Round(drawPosition.Y + data.OppositeLeg)), 
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg), drawPosition.Y));
+            g.DrawLine( // Hypotenuse
                 _hypPen, 
-                new PointF(drawPosition.X, drawPosition.Y + (float)data.OppositeLeg), 
-                new PointF(drawPosition.X + (float)data.AdjacentLeg, drawPosition.Y));
-            g.DrawString("b", _font, new SolidBrush(_adjLegPen.Color),
-                new PointF(drawPosition.X + (float)data.AdjacentLeg / 2 - _font.Size / 2, drawPosition.Y + (float)data.OppositeLeg));
-            g.DrawString("a", _font, new SolidBrush(_oppLegPen.Color),
-                new PointF(drawPosition.X + (float)data.AdjacentLeg, drawPosition.Y + (float)data.OppositeLeg / 2 - _font.Height / 2));
-            g.DrawString("c", _font, new SolidBrush(_hypPen.Color),
-                new PointF(drawPosition.X + (float)data.AdjacentLeg / 2 - _font.Size, drawPosition.Y + (float)data.OppositeLeg / 2 - _font.Height));
-            g.DrawString("α", _font, Brushes.Black, 
-                new PointF(drawPosition.X + (int)data.AdjacentLeg / 5, drawPosition.Y + (int)data.OppositeLeg - (int)(data.AdjacentLeg * Math.Cos(data.AngleAlpha / 2) / 5) - _font.Height / 2));
+                new Point(drawPosition.X, (int)Math.Round(drawPosition.Y + data.OppositeLeg)), 
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg), drawPosition.Y));
+            g.DrawString("b", _font, new SolidBrush(_adjLegPen.Color), // Adjacent leg
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg / 2 - _font.Size / 2), (int)Math.Round(drawPosition.Y + data.OppositeLeg)));
+            g.DrawString("a", _font, new SolidBrush(_oppLegPen.Color), // Opposite leg
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg), (int)Math.Round(drawPosition.Y + data.OppositeLeg / 2 - _font.Size / 2)));
+            g.DrawString("c", _font, new SolidBrush(_hypPen.Color), // Hypotenuse
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg / 2 - _font.Size / 2), (int)Math.Round(drawPosition.Y + data.OppositeLeg - Math.Sin(data.AngleAlpha) * (data.Hypotenuse / 2) - (_font.Height + _font.Height / 3))));
+            g.DrawString("α", _font, Brushes.Black, // Angle alpha
+                new Point((int)Math.Round(drawPosition.X + Math.Cos(data.AngleAlpha / 2) * (data.Hypotenuse / 8 + _font.Size * 2) - _font.Size / 2), (int)Math.Round(drawPosition.Y + data.OppositeLeg - (Math.Sin(data.AngleAlpha / 2) * (data.Hypotenuse / 8 + _font.Size * 2)) - _font.Height * 0.6)));
+            g.DrawString("β", _font, Brushes.Black, // Angle beta
+                new Point((int)Math.Round(drawPosition.X + data.AdjacentLeg - Math.Sin(data.AngleBeta / 2) * (data.Hypotenuse / 8 + _font.Size * 2) - _font.Size / 2), (int)Math.Round(drawPosition.Y + (Math.Cos(data.AngleBeta / 2) * (data.Hypotenuse / 8 + _font.Size * 2)) - _font.Height * 0.6)));
         }
     }
 }

@@ -25,8 +25,8 @@ namespace RightTriangles
         {
             RightTriangleData adjacentLegAngle = new RightTriangleData()
             {
-                AdjacentLeg = 84,
-                AngleAlpha = Math.PI / 6
+                AdjacentLeg = 350,
+                AngleAlpha = Math.PI / 3
             };
             RightTriangleData oppositeLegAngle = new RightTriangleData()
             {
@@ -35,8 +35,8 @@ namespace RightTriangles
             };
             RightTriangleData adjacentLegOppositeLeg = new RightTriangleData()
             {
-                AdjacentLeg = 300,
-                OppositeLeg = 500
+                AdjacentLeg = 500,
+                OppositeLeg = 200
             };
             RightTriangleData hypAngle = new RightTriangleData()
             {
@@ -130,7 +130,7 @@ namespace RightTriangles
             //Controls.AddRange(new Control[] { currentDataLabel, currentModeLabel, builtDataLabel, validatedLabel });
 
             _drawer = new ColoredRightTriangleDrawer(new Pen(Color.Red, 5), new Pen(Color.Green, 5), new Pen(Color.Blue, 5));
-            _currentData = modeSelector.SelectMode(hypAdjacentLeg).Build(hypAdjacentLeg);
+            _currentData = modeSelector.SelectMode(hypAngle).Build(hypAngle);
             InitializeComponent();
         }
     }
