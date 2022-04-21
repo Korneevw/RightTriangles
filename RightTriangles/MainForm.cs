@@ -13,12 +13,18 @@ namespace RightTriangles
 {
     public partial class MainForm : Form
     {
+        private BuildModeSelector _builtModeSelector;
         private IRightTriangleDrawer _drawer;
-        private RightTriangleData _currentData;
+        private IRightTriangleDataInput _dataInput;
+        private RightTriangleData _currentData = new RightTriangleData();
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            _drawer?.Draw(_currentData, e.Graphics, new Point(100, 100));
+            try
+            {
+                _drawer?.Draw(_currentData, e.Graphics, new Point(300, 100)/*, 300*/);
+            }
+            catch (ArgumentException) { }
             base.OnPaint(e);
         }
         public MainForm()
@@ -36,12 +42,12 @@ namespace RightTriangles
             RightTriangleData adjacentLegOppositeLeg = new RightTriangleData()
             {
                 AdjacentLeg = 500,
-                OppositeLeg = 200
+                OppositeLeg = 500
             };
             RightTriangleData hypAngle = new RightTriangleData()
             {
-                Hypotenuse = 300,
-                AngleAlpha = Math.PI / 6
+                Hypotenuse = 1000,
+                AngleAlpha = Math.PI / 3
             };
             RightTriangleData hypOppositeLeg = new RightTriangleData()
             {
@@ -75,63 +81,23 @@ namespace RightTriangles
 
             bool[] validationsForDatas = new bool[rightTriangleDatas.Length];
 
-            BuildModeSelector modeSelector = new BuildModeSelector(buildModes);
-            //for (int i = 0; i < rightTriangleDatas.Length; i++)
-            //{
-            //    RightTriangleData data = rightTriangleDatas[i];
-
-            //    IBuildModeConditionContaining mode = modeSelector.CheckConditions(data);
-            //    RightTriangleData builtData = mode.Build(data);
-            //    validationsForDatas[i] = validator.Validate(builtData);
-
-            //    Label l = new Label()
-            //    {
-            //        Text = validationsForDatas[i].ToString(),
-            //        ForeColor = validationsForDatas[i] == true ? Color.Green : Color.Red,
-            //        Font = new Font("Arial", 40),
-            //        AutoSize = true,
-            //        Location = new Point(0, 0 + 50 * i)
-            //    };
-            //    Controls.Add(l);
-            //}
-
-            //RightTriangleData currentData = hypOppositeLeg;
-            //Label currentDataLabel = new Label()
-            //{
-            //    Location = new Point(0, 0),
-            //    Text = $"Given Data:\nHypotenuse: {currentData.Hypotenuse}\nAdjacent Leg: {currentData.AdjacentLeg}\nOpposite Leg: {currentData.OppositeLeg}\nAngle Alpha: {currentData.AngleAlpha}\nAngle Beta: {currentData.AngleBeta}",
-            //    AutoSize = true,
-            //};
-
-            //IBuildModeConditionContaining mode = modeSelector.CheckConditions(currentData);
-            //Label currentModeLabel = new Label()
-            //{
-            //    Location = new Point(0, 100),
-            //    Text = mode.GetType().Name,
-            //    AutoSize = true,
-            //};
-
-            //RightTriangleData builtData = mode.Build(currentData);
-            //Label builtDataLabel = new Label()
-            //{
-            //    Location = new Point(0, 130),
-            //    Text = $"Built Data:\nHypotenuse: {builtData.Hypotenuse}\nAdjacent Leg: {builtData.AdjacentLeg}\nOpposite Leg: {builtData.OppositeLeg}\nAngle Alpha: {builtData.AngleAlpha}\nAngle Beta: {builtData.AngleBeta}",
-            //    AutoSize = true,
-            //};
-
-            //bool validated = validator.Validate(builtData);
-            //Label validatedLabel = new Label()
-            //{
-            //    Location = new Point(0, 230),
-            //    Text = $"Built Data validated? " + (validated ? "Yes" : "No"),
-            //    AutoSize = true,
-            //};
-
-            //Controls.AddRange(new Control[] { currentDataLabel, currentModeLabel, builtDataLabel, validatedLabel });
-
-            _drawer = new ColoredRightTriangleDrawer(new Pen(Color.Red, 5), new Pen(Color.Green, 5), new Pen(Color.Blue, 5));
-            _currentData = modeSelector.SelectMode(hypAngle).Build(hypAngle);
+            _builtModeSelector = new BuildModeSelector(buildModes);
+            RightTriangleDrawerConfiguration configuration = new RightTriangleDrawerConfiguration()
+            {
+                AngleArcSize = 20,
+                AngleLabelDistance = 20,
+            };
+            _drawer = new RightTriangleDrawer(configuration);
+            _dataInput = new RightTriangleDataInput(Controls, new Point(0, 0));
+            _dataInput.AnyValueChanged += OnValueChanged;
+            //_currentData = modeSelector.SelectMode(_dataInput.InputData).Build(_dataInput.InputData);
             InitializeComponent();
+        }
+
+        private void OnValueChanged()
+        {
+            _currentData = _builtModeSelector.SelectMode(_dataInput.InputData).Build(_dataInput.InputData);
+            this.Refresh();
         }
     }
 }
