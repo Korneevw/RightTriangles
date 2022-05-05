@@ -11,64 +11,18 @@ using System.Drawing.Text;
 
 namespace RightTriangles
 {
-    public partial class MainForm : Form
+    public partial class InputForm : Form
     {
-        private BuildModeSelector _builtModeSelector;
-        private IRightTriangleDrawer _drawer;
-        private IRightTriangleDataInput _dataInput;
         private RightTriangleData _currentData = new RightTriangleData();
-        protected override void OnPaint(PaintEventArgs e)
+        private IBuildModeSelector _buildModeSelector;
+        private IRightTriangleValidator _validator;
+        private IRightTriangleDataInput _dataInput;
+        private IPropertiesInput _propertiesInput;
+        private DrawerConfiguration _drawerConfig;
+        private IDrawerConfigurationInput _configInput;
+        private DrawingForm _drawingForm;
+        public InputForm()
         {
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            try
-            {
-                _drawer?.Draw(_currentData, e.Graphics, new Point(300, 100)/*, 300*/);
-            }
-            catch (ArgumentException) { }
-            base.OnPaint(e);
-        }
-        public MainForm()
-        {
-            RightTriangleData adjacentLegAngle = new RightTriangleData()
-            {
-                AdjacentLeg = 350,
-                AngleAlpha = Math.PI / 3
-            };
-            RightTriangleData oppositeLegAngle = new RightTriangleData()
-            {
-                OppositeLeg = 15,
-                AngleAlpha = Math.PI / 6
-            };
-            RightTriangleData adjacentLegOppositeLeg = new RightTriangleData()
-            {
-                AdjacentLeg = 500,
-                OppositeLeg = 500
-            };
-            RightTriangleData hypAngle = new RightTriangleData()
-            {
-                Hypotenuse = 1000,
-                AngleAlpha = Math.PI / 3
-            };
-            RightTriangleData hypOppositeLeg = new RightTriangleData()
-            {
-                Hypotenuse = 40,
-                OppositeLeg = 10
-            };
-            RightTriangleData hypAdjacentLeg = new RightTriangleData()
-            {
-                Hypotenuse = 200,
-                AdjacentLeg = 100
-            };
-
-            RightTriangleData[] rightTriangleDatas = new RightTriangleData[]
-            {
-                adjacentLegAngle,
-                oppositeLegAngle,
-                adjacentLegOppositeLeg,
-                hypAngle,
-                hypOppositeLeg,
-                hypAdjacentLeg
-            };
             IBuildMode[] buildModes = new IBuildMode[]
             {
                 new AdjacentLegAngleBuildMode(),
@@ -78,26 +32,54 @@ namespace RightTriangles
                 new HypotenuseOppositeLegBuildMode(),
                 new HypotenuseAdjacentLegBuildMode()
             };
-
-            bool[] validationsForDatas = new bool[rightTriangleDatas.Length];
-
-            _builtModeSelector = new BuildModeSelector(buildModes);
-            RightTriangleDrawerConfiguration configuration = new RightTriangleDrawerConfiguration()
-            {
-                AngleArcSize = 20,
-                AngleLabelDistance = 20,
-            };
-            _drawer = new RightTriangleDrawer(configuration);
-            _dataInput = new RightTriangleDataInput(Controls, new Point(0, 0));
-            _dataInput.AnyValueChanged += OnValueChanged;
-            //_currentData = modeSelector.SelectMode(_dataInput.InputData).Build(_dataInput.InputData);
+            _buildModeSelector = new BuildModeSelector(buildModes);
+            _validator = new RightTriangleValidator();
+            _dataInput = new RightTriangleDataInput(Controls, new Point(7, 0));
+            _dataInput.AnyValueChanged += InputDataValueChanged;
+            _propertiesInput = new PropertiesInput(Controls, new Point(7, _dataInput.Size.Height + 10));
+            _propertiesInput.AnyValueChanged += PropertiesValueChanged;
+            _drawerConfig = new DrawerConfiguration();
+            _configInput = new DrawerConfigurationInput(Controls, new Point(7 + _dataInput.Size.Width + 10, 0), _drawerConfig);
+            _configInput.AnyValueChanged += ConfigurationValueChanged;
+            _drawingForm = new DrawingForm(new RightTriangleDrawer(_drawerConfig), _currentData, _validator);
+            _drawingForm.Show();
             InitializeComponent();
+            Size = PreferredSize;
+            MinimizeBox = false;
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Text = "Inputs";
         }
 
-        private void OnValueChanged()
+        private void ConfigurationValueChanged()
         {
-            _currentData = _builtModeSelector.SelectMode(_dataInput.InputData).Build(_dataInput.InputData);
-            this.Refresh();
+            _drawerConfig = _configInput.Configuration;
+            _drawingForm.Drawer.Configuration = _drawerConfig;
+            _drawingForm.ChangeSize();
+            _drawingForm.Refresh();
+        }
+
+        private void PropertiesValueChanged()
+        {
+            Properties.DecimalAccuracy = _propertiesInput.DecimalAccuracy;
+            Properties.Increment = _propertiesInput.Increment;
+            _dataInput.UpdateDecimalAccuracy();
+            _dataInput.UpdateIncrement();
+            _propertiesInput.UpdateDecimalAccuracy();
+        }
+        private void InputDataValueChanged()
+        {
+            try
+            {
+                _currentData = _buildModeSelector.SelectMode(_dataInput.InputData).Build(_dataInput.InputData);
+                _drawingForm.Data = _currentData;
+                _drawingForm.ChangeSize();
+            }
+            catch (ArgumentException)
+            {
+                // Notify user
+            }
+            _drawingForm.Refresh();
         }
     }
 }

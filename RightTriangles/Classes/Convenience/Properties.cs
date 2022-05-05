@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class Properties
+    public class Properties
     {
-        public static int DecimalAccuracy = 3;
+        public static int DecimalAccuracy { get; set; } = 3;
+        public static decimal Increment { get; set; } = 5;
     }
 }

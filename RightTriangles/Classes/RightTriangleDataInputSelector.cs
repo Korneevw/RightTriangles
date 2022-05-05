@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RightTriangles
+namespace RightTriangles.Classes
 {
-    public interface IBuildModeSelector
+    internal class RightTriangleDataInputSelector
     {
-        public IBuildMode SelectMode(RightTriangleData data);
+
     }
 }

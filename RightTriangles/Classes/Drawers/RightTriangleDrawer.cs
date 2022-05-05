@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class RightTriangleDrawer : IRightTriangleDrawer
+    public class RightTriangleDrawer : IRightTriangleDrawer
     {
-        public RightTriangleDrawerConfiguration Configuration { get; set; }
+        public DrawerConfiguration Configuration { get; set; }
         private IRightTriangleValidator _validator = new RightTriangleValidator();
-        public RightTriangleDrawer(RightTriangleDrawerConfiguration configuration)
+        public RightTriangleDrawer(DrawerConfiguration configuration)
         {
             Configuration = configuration;
         }
-        public RightTriangleDrawer(RightTriangleDrawerConfiguration configuration, IRightTriangleValidator validator) : this(configuration)
+        public RightTriangleDrawer(DrawerConfiguration configuration, IRightTriangleValidator validator) : this(configuration)
         {
             _validator = validator;
         }
@@ -35,12 +35,12 @@ namespace RightTriangles
                         Configuration.AngleArcSize * 2, 
                         Configuration.AngleArcSize * 2));
                 g.DrawArc(
-                    new Pen(Configuration.AngleAlphaArcColor, Configuration.LineThickness), 
+                    new Pen(Color.Black, Configuration.LineThickness), 
                     alphaArcRect, 
                     -(int)(data.AngleAlpha * (180 / Math.PI)), 
                     (int)(data.AngleAlpha * (180 / Math.PI)));
                 g.DrawString(Configuration.AngleAlphaLabel, Configuration.LabelFont,
-                    new SolidBrush(Configuration.AngleAlphaLabelColor),
+                    new SolidBrush(Color.Black),
                     new Point(
                         (int)Math.Round(downLeft.X + Math.Cos(data.AngleAlpha / 2) * (Configuration.AngleArcSize + Configuration.AngleLabelDistance)), 
                         (int)Math.Round(downLeft.Y - (Math.Sin(data.AngleAlpha / 2) * (Configuration.AngleArcSize + Configuration.AngleLabelDistance)) - Configuration.LabelFont.Height * 0.6)));
@@ -54,9 +54,9 @@ namespace RightTriangles
                     new Size(
                         Configuration.AngleArcSize * 2, 
                         Configuration.AngleArcSize * 2));
-                g.DrawArc(new Pen(Configuration.AngleBetaArcColor, Configuration.LineThickness), betaArcRect, 90, (int)(data.AngleBeta * (180 / Math.PI)));
+                g.DrawArc(new Pen(Color.Black, Configuration.LineThickness), betaArcRect, 90, (int)(data.AngleBeta * (180 / Math.PI)));
                 g.DrawString(Configuration.AngleBetaLabel, Configuration.LabelFont,
-                    new SolidBrush(Configuration.AngleBetaLabelColor),
+                    new SolidBrush(Color.Black),
                     new Point(
                         (int)Math.Round(upRight.X - Math.Sin(data.AngleBeta / 2) * (Configuration.AngleArcSize + Configuration.AngleLabelDistance) - Configuration.LabelFont.Size * Configuration.AngleBetaLabel.Length / 2), 
                         (int)Math.Round(upRight.Y + (Math.Cos(data.AngleBeta / 2) * (Configuration.AngleArcSize + Configuration.AngleLabelDistance)) - Configuration.LabelFont.Height * 0.6)));
@@ -64,7 +64,7 @@ namespace RightTriangles
             if (Configuration.RightAngleRect)
             {
                 g.DrawRectangle(
-                    new Pen(Configuration.RightAngleRectColor, Configuration.LineThickness),
+                    new Pen(Color.Black, Configuration.LineThickness),
                     new Rectangle(
                         new Point(
                             downRight.X - Configuration.AngleArcSize, 
@@ -72,59 +72,67 @@ namespace RightTriangles
                         new Size(
                             Configuration.AngleArcSize, 
                             Configuration.AngleArcSize)));
-                g.DrawString(Configuration.RightTriangleRectLabel, Configuration.LabelFont,
-                    new SolidBrush(Configuration.RightTriangleRectLabelColor),
+                g.DrawString(Configuration.RightAngleLabel, Configuration.LabelFont,
+                    new SolidBrush(Color.Black),
                     new Point(
-                        (int)Math.Round(downRight.X - (Configuration.AngleArcSize + Configuration.AngleLabelDistance) - Configuration.LabelFont.Size * Configuration.RightTriangleRectLabel.Length / 2), 
+                        (int)Math.Round(downRight.X - (Configuration.AngleArcSize + Configuration.AngleLabelDistance) - Configuration.LabelFont.Size * Configuration.RightAngleLabel.Length / 2), 
                         (int)Math.Round(downRight.Y - (Configuration.AngleArcSize + Configuration.AngleLabelDistance) - Configuration.LabelFont.Height * 0.6)));
             }
-            g.DrawLine(new Pen(Configuration.AdjacentLegColor, Configuration.LineThickness), downLeft, downRight); // Adjacent leg
-            g.DrawLine(new Pen(Configuration.OppositeLegColor, Configuration.LineThickness), upRight, downRight); // Opposite leg
-            g.DrawLine(new Pen(Configuration.HypotenuseColor, Configuration.LineThickness), downLeft, upRight); // Hypotenuse
+            g.DrawLine(new Pen(Color.Black, Configuration.LineThickness), downLeft, downRight); // Adjacent leg
+            g.DrawLine(new Pen(Color.Black, Configuration.LineThickness), upRight, downRight); // Opposite leg
+            g.DrawLine(new Pen(Color.Black, Configuration.LineThickness), downLeft, upRight); // Hypotenuse
             g.DrawString(Configuration.AdjacentLegLabel, Configuration.LabelFont, 
-                new SolidBrush(Configuration.AdjacentLegLabelColor), 
+                new SolidBrush(Color.Black), 
                 new Point(
                     (int)Math.Round(downLeft.X + data.AdjacentLeg / 2 - Configuration.LabelFont.Size * Configuration.AdjacentLegLabel.Length / 2), 
                     downLeft.Y)); // Adjacent leg label
             g.DrawString(Configuration.OppositeLegLabel, Configuration.LabelFont, 
-                new SolidBrush(Configuration.OppositeLegLabelColor), 
+                new SolidBrush(Color.Black), 
                 new Point(
                     upRight.X, 
                     (int)Math.Round(upRight.Y + data.OppositeLeg / 2 - Configuration.LabelFont.Height * 0.6))); // Opposite leg label
             g.DrawString(Configuration.HypotenuseLabel, Configuration.LabelFont, 
-                new SolidBrush(Configuration.HypotenuseLabelColor),
+                new SolidBrush(Color.Black),
                 new Point(
                     (int)Math.Round(downLeft.X + Math.Cos(data.AngleAlpha) * (data.Hypotenuse / 2) - 10 - Configuration.LabelFont.Size * Configuration.HypotenuseLabel.Length), 
                     (int)Math.Round(downLeft.Y - Math.Sin(data.AngleAlpha) * (data.Hypotenuse / 2) - 10 - Configuration.LabelFont.Height * 0.6))); // Hypotenuse label
             g.DrawString(Configuration.HypotenuseAdjacentLegVertexLabel, Configuration.LabelFont,
-                new SolidBrush(Configuration.HypotenuseAdjacentLegVertexLabelColor),
+                new SolidBrush(Color.Black),
                 new Point(
                     (int)Math.Round(downLeft.X - Configuration.LabelFont.Size * Configuration.HypotenuseAdjacentLegVertexLabel.Length - 10), 
                     (int)Math.Round(downLeft.Y - Configuration.LabelFont.Height * 0.6))); // Hypotenuse adjacent leg vertex label
             g.DrawString(Configuration.HypotenuseOppositeLegVertexLabel, Configuration.LabelFont,
-                new SolidBrush(Configuration.HypotenuseOppositeLegVertexLabelColor),
+                new SolidBrush(Color.Black),
                 new Point(
                     (int)Math.Round(upRight.X - Configuration.LabelFont.Size * Configuration.HypotenuseOppositeLegVertexLabel.Length / 2),
                     upRight.Y - Configuration.LabelFont.Height)); // Hypotenuse opposite leg vertex label
             g.DrawString(Configuration.AdjacentLegOppositeLegVertexLabel, Configuration.LabelFont,
-                new SolidBrush(Configuration.AdajcentLegOppositeLegVertexLabelColor),
+                new SolidBrush(Color.Black),
                 new Point(
                     (int)Math.Round(downRight.X - Configuration.LabelFont.Size * Configuration.AdjacentLegOppositeLegVertexLabel.Length / 2),
                     downRight.Y)); // Adjacent leg opposite leg vertex label
 
         }
-        public void DrawInRatios(RightTriangleData data, Graphics g, Point drawPosition, int size)
+        public void DrawInRatios(RightTriangleData data, Graphics g, Point drawPosition)
         {
             if (_validator.Validate(data) == false) throw new ArgumentException("Given right triangle data is not valid."); // May affect perfomance?
             RightTriangleData ratioedData = new RightTriangleData()
             {
-                Hypotenuse = size,
-                AdjacentLeg = Math.Cos(data.AngleAlpha) * size,
-                OppositeLeg = Math.Sin(data.AngleAlpha) * size,
+                Hypotenuse = 50 * Configuration.Size,
+                AdjacentLeg = Math.Cos(data.AngleAlpha) * (50 * Configuration.Size),
+                OppositeLeg = Math.Sin(data.AngleAlpha) * (50 * Configuration.Size),
                 AngleAlpha = data.AngleAlpha,
                 AngleBeta = data.AngleBeta,
             };
             Draw(ratioedData, g, drawPosition);
+        }
+        public Size GetTriangleDrawingSize(RightTriangleData data)
+        {
+            return new Size((int)Math.Ceiling(data.AdjacentLeg), (int)Math.Ceiling(data.OppositeLeg));
+        }
+        public Size GetTriangleDrawingSizeRatios(RightTriangleData data)
+        {
+            return new Size((int)Math.Ceiling(Math.Cos(data.AngleAlpha) * (50 * Configuration.Size)), (int)Math.Ceiling(Math.Sin(data.AngleAlpha) * (50 * Configuration.Size)));
         }
     }
 }

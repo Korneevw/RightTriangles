@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class AdjacentLegOppositeLegBuildMode : IBuildMode
+    public class AdjacentLegOppositeLegBuildMode : IBuildMode
     {
         public bool CheckCondition(RightTriangleData data)
         {

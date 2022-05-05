@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class BuildModeSelector : IBuildModeSelector
+    public class BuildModeSelector : IBuildModeSelector
     {
         private IBuildMode[] _modes;
         public BuildModeSelector(IBuildMode[] modes) => _modes = modes;

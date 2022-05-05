@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class RightTriangleData
+    public class RightTriangleData
     {
         public double Hypotenuse { get; set; } = 0;
         public double AdjacentLeg { get; set; } = 0;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class RightTriangleValidator : IRightTriangleValidator
+    public class RightTriangleValidator : IRightTriangleValidator
     {
         public bool Validate(RightTriangleData data)
         {

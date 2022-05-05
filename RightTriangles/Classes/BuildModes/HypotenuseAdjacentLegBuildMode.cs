@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    internal class HypotenuseAdjacentLegBuildMode : IBuildMode
+    public class HypotenuseAdjacentLegBuildMode : IBuildMode
     {
         public bool CheckCondition(RightTriangleData data)
         {

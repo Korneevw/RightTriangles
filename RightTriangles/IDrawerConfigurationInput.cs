@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace RightTriangles
 {
-    public interface IRightTriangleDataInput
+    public interface IDrawerConfigurationInput
     {
-        public RightTriangleData InputData { get; }
+        public DrawerConfiguration Configuration { get; }
+        public Point Location { get; }
         public Size Size { get; }
         public event Action? AnyValueChanged;
-        public void UpdateDecimalAccuracy();
-        public void UpdateIncrement();
     }
 }
