@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
     public interface IRightTriangleDrawer
     {
@@ -12,6 +6,6 @@ namespace RightTriangles
         public void Draw(RightTriangleData data, Graphics g, Point drawPosition);
         public void DrawInRatios(RightTriangleData data, Graphics g, Point drawPosition);
         public Size GetTriangleDrawingSize(RightTriangleData data);
-        public Size GetTriangleDrawingSizeRatios(RightTriangleData data);
+        public Size GetTriangleRatiosDrawingSize(RightTriangleData data);
     }
 }

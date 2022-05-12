@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
     public interface IDrawerConfigurationInput
     {
@@ -12,5 +6,6 @@ namespace RightTriangles
         public Point Location { get; }
         public Size Size { get; }
         public event Action? AnyValueChanged;
+        public event Action? ResetButtonClick;
     }
 }

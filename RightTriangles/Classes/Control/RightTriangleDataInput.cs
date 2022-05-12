@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
     public class RightTriangleDataInput : IRightTriangleDataInput
     {
@@ -21,7 +15,9 @@ namespace RightTriangles
         private NumericUpDown _oppositeLegInput;
         private Label _angleAlphaInputLabel;
         private NumericUpDown _angleAlphaInput;
+        private Button _resetButton;
         public event Action? AnyValueChanged;
+        public event Action? ResetButtonClick;
         public RightTriangleDataInput(Control.ControlCollection controlContainer, Point startingPoint)
         {
             _inputData = new RightTriangleData();
@@ -30,8 +26,6 @@ namespace RightTriangles
             {
                 Text = "Inputs",
                 Location = new Point(startingPoint.X, startingPoint.Y),
-                Width = 120,
-                Height = 235,
             };
 
             _hypotenuseInputLabel = new Label()
@@ -46,7 +40,6 @@ namespace RightTriangles
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
-                Maximum = 1000,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _hypotenuseInputLabel.Bottom)
             };
@@ -64,7 +57,6 @@ namespace RightTriangles
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
-                Maximum = 1000,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _adjacentLegInputLabel.Bottom)
             };
@@ -82,7 +74,6 @@ namespace RightTriangles
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
-                Maximum = 1000,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _oppositeLegInputLabel.Bottom)
             };
@@ -100,15 +91,31 @@ namespace RightTriangles
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
-                Maximum = 90 - (decimal)Math.Pow(0.1, Properties.DecimalAccuracy),
+                Maximum = 89,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _angleAlphaInputLabel.Bottom)
             };
             _angleAlphaInput.ValueChanged += AngleAlphaValueChanged;
 
-            _groupBox.Controls.AddRange(new Control[] { _hypotenuseInput, _adjacentLegInput, _oppositeLegInput, _angleAlphaInput, _hypotenuseInputLabel, _adjacentLegInputLabel, _oppositeLegInputLabel, _angleAlphaInputLabel });
+            _resetButton = new Button()
+            {
+                Text = "Reset",
+                Width = 100,
+                Location = new Point(_hypotenuseInputLabel.Left, _angleAlphaInput.Bottom + 10)
+            };
+            _resetButton.Click += ResetClick;
+
+            _groupBox.Controls.AddRange(new Control[] { _hypotenuseInput, _adjacentLegInput, _oppositeLegInput, _angleAlphaInput, _hypotenuseInputLabel, _adjacentLegInputLabel, _oppositeLegInputLabel, _angleAlphaInputLabel, _resetButton });
+            _groupBox.Size = _groupBox.PreferredSize;
             controlContainer.Add(_groupBox);
             _allInputControls = new NumericUpDown[] { _hypotenuseInput, _adjacentLegInput, _oppositeLegInput, _angleAlphaInput };
+        }
+        private void ResetClick(object? sender, EventArgs e)
+        {
+            _allInputControls.ToList().ForEach(c => c.Value = c.Minimum);
+            _inputData = new RightTriangleData();
+            _allInputControls.ToList().ForEach(c => c.Enabled = true);
+            ResetButtonClick?.Invoke();
         }
         private void HypotenuseValueChanged(object? sender, EventArgs e)
         {

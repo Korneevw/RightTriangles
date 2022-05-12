@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
     public class PropertiesInput : IPropertiesInput
     {
@@ -18,7 +12,7 @@ namespace RightTriangles
         private NumericUpDown _incrementInput;
         public int DecimalAccuracy { get { return _decimalAccuracy; } }
         public decimal Increment { get { return _increment;} }
-        public Size TotalControlSize { get { return _totalControlSize; } }
+        public Size Size { get { return _totalControlSize; } }
         public event Action? AnyValueChanged;
         public PropertiesInput(Control.ControlCollection controlContainer, Point startingPoint)
         {

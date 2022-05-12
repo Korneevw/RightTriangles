@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
     public class DrawerConfigurationInput : IDrawerConfigurationInput
     {
         public DrawerConfiguration Configuration { get; set; }
         public event Action? AnyValueChanged;
+        public event Action? ResetButtonClick;
         public Point Location { get { return _groupBox.Location; } set { _groupBox.Location = value; } }
         public Size Size { get { return _groupBox.Size; } }
         private GroupBox _groupBox;
@@ -47,6 +42,7 @@ namespace RightTriangles
         private NumericUpDown _lineThicknessInput;
         private Label _sizeLabel;
         private NumericUpDown _sizeInput;
+        private Button _resetButton;
         public DrawerConfigurationInput(Control.ControlCollection controlContainer, Point location, DrawerConfiguration defaultConfiguration)
         {
             Configuration = defaultConfiguration;
@@ -119,6 +115,8 @@ namespace RightTriangles
             _angleAlphaLabelInput = new TextBox()
             {
                 Text = Configuration.AngleAlphaLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(10, _angleAlphaLabelLabel.Bottom)
             };
             _angleAlphaLabelInput.TextChanged += (s, e) => { Configuration.AngleAlphaLabel = _angleAlphaLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -150,12 +148,14 @@ namespace RightTriangles
             _angleBetaLabelInput = new TextBox()
             {
                 Text = Configuration.AngleBetaLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(10, _angleBetaLabelLabel.Bottom)
             };
             _angleBetaLabelInput.TextChanged += (s, e) => { Configuration.AngleBetaLabel = _angleBetaLabelInput.Text; AnyValueChanged?.Invoke(); };
             _groupBox.Controls.Add(_angleBetaLabelLabel);
             _groupBox.Controls.Add(_angleBetaLabelInput);
-            //
+
             _rightAngleRectLabel = new Label()
             {
                 Text = "Right angle rect.:",
@@ -181,6 +181,8 @@ namespace RightTriangles
             _rightAngleLabelInput = new TextBox()
             {
                 Text = Configuration.RightAngleLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(10, _rightAngleLabelLabel.Bottom)
             };
             _rightAngleLabelInput.TextChanged += (s, e) => { Configuration.RightAngleLabel = _rightAngleLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -196,6 +198,8 @@ namespace RightTriangles
             _adjacentLegLabelInput = new TextBox()
             {
                 Text = Configuration.AdjacentLegLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(150, _adjacentLegLabelLabel.Bottom)
             };
             _adjacentLegLabelInput.TextChanged += (s, e) => { Configuration.AdjacentLegLabel = _adjacentLegLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -211,6 +215,8 @@ namespace RightTriangles
             _oppositeLegLabelInput = new TextBox()
             {
                 Text = Configuration.OppositeLegLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(150, _oppositeLegLabelLabel.Bottom)
             };
             _oppositeLegLabelInput.TextChanged += (s, e) => { Configuration.OppositeLegLabel = _oppositeLegLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -226,6 +232,8 @@ namespace RightTriangles
             _hypotenuseLabelInput = new TextBox()
             {
                 Text = Configuration.HypotenuseLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(150, _hypotenuseLabelLabel.Bottom)
             };
             _hypotenuseLabelInput.TextChanged += (s, e) => { Configuration.HypotenuseLabel = _hypotenuseLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -241,6 +249,8 @@ namespace RightTriangles
             _hypotenuseAdjacentLegVertexLabelInput = new TextBox()
             {
                 Text = Configuration.HypotenuseAdjacentLegVertexLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(150, _hypotenuseAdjacentLegVertexLabelLabel.Bottom)
             };
             _hypotenuseAdjacentLegVertexLabelInput.TextChanged += (s, e) => { Configuration.HypotenuseAdjacentLegVertexLabel = _hypotenuseAdjacentLegVertexLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -256,6 +266,8 @@ namespace RightTriangles
             _hypotenuseOppositeLegVertexLabelInput = new TextBox()
             {
                 Text = Configuration.HypotenuseOppositeLegVertexLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(150, _hypotenuseOppositeLegVertexLabelLabel.Bottom)
             };
             _hypotenuseOppositeLegVertexLabelInput.TextChanged += (s, e) => { Configuration.HypotenuseOppositeLegVertexLabel = _hypotenuseOppositeLegVertexLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -271,6 +283,8 @@ namespace RightTriangles
             _adjacentLegOppositeLegVertexLabelInput = new TextBox()
             {
                 Text = Configuration.AdjacentLegOppositeLegVertexLabel,
+                Multiline = false,
+                MaxLength = 10,
                 Location = new Point(150, _adjacentLegOppositeLegVertexLabelLabel.Bottom)
             };
             _adjacentLegOppositeLegVertexLabelInput.TextChanged += (s, e) => { Configuration.AdjacentLegOppositeLegVertexLabel = _adjacentLegOppositeLegVertexLabelInput.Text; AnyValueChanged?.Invoke(); };
@@ -329,16 +343,49 @@ namespace RightTriangles
             _groupBox.Controls.Add(_sizeLabel);
             _groupBox.Controls.Add(_sizeInput);
 
+            _resetButton = new Button()
+            {
+                Text = "Reset to defaults",
+                AutoSize = true,
+                Location = new Point(270, _sizeInput.Bottom)
+            };
+            _resetButton.Click += ResetClick;
+            _groupBox.Controls.Add(_resetButton);
+
             _groupBox.Size = _groupBox.PreferredSize;
             controlContainer.Add(_groupBox);
         }
-
         private void SelectFontClick(object? sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
             fontDialog.ShowDialog();
             Configuration.LabelFont = fontDialog.Font;
             AnyValueChanged?.Invoke();
+        }
+        private void ResetClick(object? sender, EventArgs e)
+        {
+            Configuration = new DrawerConfiguration();
+            UpdateInputFieldValues();
+            ResetButtonClick?.Invoke();
+        }
+        public void UpdateInputFieldValues()
+        {
+            _angleArcSizeInput.Value = Configuration.AngleArcSize;
+            _angleLabelDistanceInput.Value = Configuration.AngleLabelDistance;
+            _angleAlphaArcInput.Checked = Configuration.AngleAlphaArc;
+            _angleAlphaLabelInput.Text = Configuration.AngleAlphaLabel;
+            _angleBetaArcInput.Checked = Configuration.AngleBetaArc;
+            _angleBetaLabelInput.Text = Configuration.AngleBetaLabel;
+            _rightAngleRectInput.Checked = Configuration.RightAngleRect;
+            _rightAngleLabelInput.Text = Configuration.RightAngleLabel;
+            _adjacentLegLabelInput.Text = Configuration.AdjacentLegLabel;
+            _oppositeLegLabelInput.Text = Configuration.OppositeLegLabel;
+            _hypotenuseLabelInput.Text = Configuration.HypotenuseLabel;
+            _hypotenuseAdjacentLegVertexLabelInput.Text = Configuration.HypotenuseAdjacentLegVertexLabel;
+            _hypotenuseOppositeLegVertexLabelInput.Text = Configuration.HypotenuseOppositeLegVertexLabel;
+            _adjacentLegOppositeLegVertexLabelInput.Text = Configuration.AdjacentLegOppositeLegVertexLabel;
+            _lineThicknessInput.Value = Configuration.LineThickness;
+            _sizeInput.Value = Configuration.LineThickness;
         }
     }
 }

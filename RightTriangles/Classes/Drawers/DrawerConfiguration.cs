@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
     public class DrawerConfiguration
     {
-        public int AngleArcSize { get; set; } = 50;
+        public int AngleArcSize { get; set; } = 25;
         public int AngleLabelDistance { get; set; } = 30; 
         public bool AngleAlphaArc { get; set; } = true;
         public string AngleAlphaLabel { get; set; } = "α";

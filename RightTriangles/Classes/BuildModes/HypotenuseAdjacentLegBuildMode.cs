@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RightTriangles
+﻿namespace RightTriangles
 {
-    public class HypotenuseAdjacentLegBuildMode : IBuildMode
+    public class HypotenuseAdjacentLegBuildMode : IRightTriangleBuildMode
     {
         public bool CheckCondition(RightTriangleData data)
         {
