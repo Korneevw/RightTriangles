@@ -1,4 +1,6 @@
-﻿namespace RightTriangles
+﻿using System;
+
+namespace RightTriangles
 {
     public class AdjacentLegAngleBuildMode : IRightTriangleBuildMode
     {

@@ -1,4 +1,5 @@
-﻿namespace RightTriangles
+﻿using System;
+namespace RightTriangles
 {
     internal class AdditionalDataGetter : IRightTriangleAdditionalDataGetter
     {

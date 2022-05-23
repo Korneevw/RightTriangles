@@ -1,4 +1,6 @@
-﻿namespace RightTriangles
+﻿using System.Drawing;
+
+namespace RightTriangles
 {
     public interface IRightTriangleDrawer
     {

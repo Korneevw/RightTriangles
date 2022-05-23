@@ -1,4 +1,7 @@
-﻿namespace RightTriangles
+﻿using System.Windows.Forms;
+using System.Drawing;
+
+namespace RightTriangles
 {
     public partial class DrawingForm : Form
     {
@@ -7,7 +10,6 @@
         public IRightTriangleValidator Validator;
         public IDrawingSaver Saver;
         private Button _saveButton;
-        // Test comment
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;

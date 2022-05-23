@@ -1,4 +1,5 @@
-﻿namespace RightTriangles
+﻿using System.Drawing;
+namespace RightTriangles
 {
     public class DrawerConfiguration
     {

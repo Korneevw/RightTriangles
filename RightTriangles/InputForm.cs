@@ -1,4 +1,8 @@
-﻿namespace RightTriangles
+﻿using System.Drawing;
+using System;
+using System.Windows.Forms;
+
+namespace RightTriangles
 {
     public partial class InputForm : Form
     {

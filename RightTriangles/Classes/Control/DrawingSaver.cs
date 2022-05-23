@@ -1,4 +1,8 @@
-﻿namespace RightTriangles
+﻿using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+
+namespace RightTriangles
 {
     public class DrawingSaver : IDrawingSaver
     {

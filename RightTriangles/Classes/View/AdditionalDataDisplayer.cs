@@ -1,4 +1,8 @@
-﻿namespace RightTriangles
+﻿using System.Windows.Forms;
+using System.Drawing;
+using System;
+
+namespace RightTriangles
 {
     internal class AdditionalDataDisplayer : IAdditionalDataDisplayer
     {

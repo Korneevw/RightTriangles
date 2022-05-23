@@ -1,4 +1,9 @@
-﻿namespace RightTriangles
+﻿using System.Windows.Forms;
+using System.Drawing;
+using System;
+using System.Linq;
+
+namespace RightTriangles
 {
     public class RightTriangleDataInput : IRightTriangleDataInput
     {

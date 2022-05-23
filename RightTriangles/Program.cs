@@ -1,3 +1,6 @@
+using System.Windows.Forms;
+using System;
+
 namespace RightTriangles
 {
     internal static class Program
@@ -8,7 +11,7 @@ namespace RightTriangles
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
+            //ApplicationConfiguration.Initialize();
             Application.Run(new InputForm());
         }
     }

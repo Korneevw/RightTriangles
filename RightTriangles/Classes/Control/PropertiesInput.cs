@@ -1,4 +1,7 @@
-﻿namespace RightTriangles
+﻿using System.Windows.Forms;
+using System;
+using System.Drawing;
+namespace RightTriangles
 {
     public class PropertiesInput : IPropertiesInput
     {
