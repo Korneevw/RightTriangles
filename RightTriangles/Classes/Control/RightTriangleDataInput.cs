@@ -40,6 +40,7 @@
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
+                Maximum = 1000000000,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _hypotenuseInputLabel.Bottom)
             };
@@ -57,6 +58,7 @@
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
+                Maximum = 1000000000,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _adjacentLegInputLabel.Bottom)
             };
@@ -74,6 +76,7 @@
                 DecimalPlaces = Properties.DecimalAccuracy,
                 Increment = Properties.Increment,
                 Minimum = 0,
+                Maximum = 1000000000,
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _oppositeLegInputLabel.Bottom)
             };
