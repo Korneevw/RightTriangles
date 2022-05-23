@@ -34,11 +34,12 @@
             _drawerConfig = new DrawerConfiguration();
             _configInput = new DrawerConfigurationInput(Controls, new Point(7 + _dataInput.Size.Width + 10, 0), _drawerConfig);
             _configInput.AnyValueChanged += ConfigurationValueChanged;
-            _drawingForm = new DrawingForm(new RightTriangleDrawer(_drawerConfig), _currentData, _validator);
+            _drawingForm = new DrawingForm(new RightTriangleDrawer(_drawerConfig), _currentData, _validator, new DrawingSaver());
             _drawingForm.Show();
             _additionalDataGetter = new AdditionalDataGetter(new RightTriangleValidator());
             _additionalDataDisplayer = new AdditionalDataDisplayer(Controls, new Point(7, _dataInput.Size.Height + 10 + _propertiesInput.Size.Height), _drawerConfig);
             _additionalDataDisplayer.Configuration = _drawerConfig;
+            _additionalDataDisplayer.CurrentAdditionalData = _currentAdditionalData;
             InitializeComponent();
             Size = PreferredSize;
             MinimizeBox = false;
@@ -66,7 +67,7 @@
             _drawingForm.ChangeSize();
             _drawingForm.Refresh();
             _additionalDataDisplayer.Configuration = _drawerConfig;
-            _additionalDataDisplayer.UpdateLabels();
+            if (_currentAdditionalData is not null) _additionalDataDisplayer.UpdateLabels();
             Size = PreferredSize;
         }
 
@@ -77,11 +78,7 @@
             _dataInput.UpdateDecimalAccuracy();
             _dataInput.UpdateIncrement();
             _propertiesInput.UpdateDecimalAccuracy();
-            try
-            {
-                _additionalDataDisplayer.UpdateLabels();
-            }
-            catch (ArgumentException) { }
+            if (_currentAdditionalData is not null) _additionalDataDisplayer.UpdateLabels();
         }
         private void InputDataValueChanged()
         {
