@@ -35,30 +35,30 @@ namespace RightTriangles
         {
             _groupBox = new GroupBox()
             {
-                Text = "Built triangle information:",
+                Text = "Информация о прямоугольном треугольнике:",
                 Location = startingPoint,
             };
             _angleAlphaRadLabel = new Label()
             {
-                Text = $"{configuration.AngleAlphaLabel} (rad.):",
+                Text = $"{configuration.AngleAlphaLabel} (рад.):",
                 Location = new Point(10, 30)
             };
             _angleAlphaRadLabel.Width = _angleAlphaRadLabel.PreferredWidth;
             _angleBetaRadLabel = new Label()
             {
-                Text = $"{configuration.AngleBetaLabel} (rad.):",
+                Text = $"{configuration.AngleBetaLabel} (рад.):",
                 Location = new Point(_angleAlphaRadLabel.Right + 10, 30)
             };
             _angleBetaRadLabel.Width = _angleBetaRadLabel.PreferredWidth;
             _angleAlphaDegLabel = new Label()
             {
-                Text = $"{configuration.AngleAlphaLabel} (deg.):",
+                Text = $"{configuration.AngleAlphaLabel} (град.):",
                 Location = new Point(_angleBetaRadLabel.Right + 10, 30)
             };
             _angleAlphaDegLabel.Width = _angleAlphaDegLabel.PreferredWidth;
             _angleBetaDegLabel = new Label()
             {
-                Text = $"{configuration.AngleBetaLabel} (deg.):",
+                Text = $"{configuration.AngleBetaLabel} (град.):",
                 Location = new Point(_angleAlphaDegLabel.Right + 10, 30)
             };
             _angleBetaDegLabel.Width = _angleBetaDegLabel.PreferredWidth;
@@ -193,19 +193,19 @@ namespace RightTriangles
         public void UpdateLabels()
         {
             if (Configuration is null || CurrentAdditionalData is null) throw new ArgumentException("Configuration or additional data is null.");
-            _angleAlphaRadLabel.Text = $"{Configuration.AngleAlphaLabel} (rad.): {Math.Round(CurrentAdditionalData.AngleAlphaRad, Properties.DecimalAccuracy)}";
+            _angleAlphaRadLabel.Text = $"{Configuration.AngleAlphaLabel} (рад.): {Math.Round(CurrentAdditionalData.AngleAlphaRad, Properties.DecimalAccuracy)}";
             _angleAlphaRadLabel.Width = _angleAlphaRadLabel.PreferredWidth;
             _angleAlphaRadLabel.Location = new Point(10, 30);
 
-            _angleBetaRadLabel.Text = $"{Configuration.AngleBetaLabel} (rad.): {Math.Round(CurrentAdditionalData.AngleBetaRad, Properties.DecimalAccuracy)}";
+            _angleBetaRadLabel.Text = $"{Configuration.AngleBetaLabel} (рад.): {Math.Round(CurrentAdditionalData.AngleBetaRad, Properties.DecimalAccuracy)}";
             _angleBetaRadLabel.Width = _angleBetaRadLabel.PreferredWidth;
             _angleBetaRadLabel.Location = new Point(_angleAlphaRadLabel.Right + 10, 30);
 
-            _angleAlphaDegLabel.Text = $"{Configuration.AngleAlphaLabel} (deg.): {Math.Round(CurrentAdditionalData.AngleAlphaDeg, Properties.DecimalAccuracy)}";
+            _angleAlphaDegLabel.Text = $"{Configuration.AngleAlphaLabel} (град.): {Math.Round(CurrentAdditionalData.AngleAlphaDeg, Properties.DecimalAccuracy)}";
             _angleAlphaDegLabel.Width = _angleAlphaDegLabel.PreferredWidth;
             _angleAlphaDegLabel.Location = new Point(_angleBetaRadLabel.Right + 10, 30);
 
-            _angleBetaDegLabel.Text = $"{Configuration.AngleBetaLabel} (deg.): {Math.Round(CurrentAdditionalData.AngleBetaDeg, Properties.DecimalAccuracy)}";
+            _angleBetaDegLabel.Text = $"{Configuration.AngleBetaLabel} (град.): {Math.Round(CurrentAdditionalData.AngleBetaDeg, Properties.DecimalAccuracy)}";
             _angleBetaDegLabel.Width = _angleBetaDegLabel.PreferredWidth;
             _angleBetaDegLabel.Location = new Point(_angleAlphaDegLabel.Right + 10, 30);
 
