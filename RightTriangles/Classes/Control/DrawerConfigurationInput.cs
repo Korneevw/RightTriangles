@@ -48,7 +48,7 @@
             Configuration = defaultConfiguration;
             _groupBox = new GroupBox()
             {
-                Text = "Drawing Configuration",
+                Text = "Редактирование чертежа",
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 Location = location,
                 Size = new Size(1000, 1000),
@@ -56,7 +56,7 @@
 
             _angleArcSizeLabel = new Label()
             {
-                Text = "Angle arc size:",
+                Text = "Размер дуг углов:",
                 AutoSize = true,
                 Location = new Point(10, 20)
             };
@@ -74,7 +74,7 @@
 
             _angleLabelDistanceLabel = new Label()
             {
-                Text = "Angle label distance:",
+                Text = "Удалённость назв. углов:",
                 AutoSize = true,
                 Location = new Point(10, _angleArcSizeInput.Bottom + 10)
             };
@@ -92,7 +92,7 @@
 
             _angleAlphaArcLabel = new Label()
             {
-                Text = "Angle alpha arc:",
+                Text = "Дуга угла альфа:",
                 AutoSize = true,
                 Location = new Point(10, _angleLabelDistanceInput.Bottom + 10)
             };
@@ -108,7 +108,7 @@
 
             _angleAlphaLabelLabel = new Label()
             {
-                Text = "Angle alpha label:",
+                Text = "Назв. угла альфа:",
                 AutoSize = true,
                 Location = new Point(10, _angleAlphaArcLabel.Bottom + 10)
             };
@@ -125,7 +125,7 @@
 
             _angleBetaArcLabel = new Label()
             {
-                Text = "Angle beta arc:",
+                Text = "Дуга угла бета:",
                 AutoSize = true,
                 Location = new Point(10, _angleAlphaLabelInput.Bottom + 10)
             };
@@ -141,7 +141,7 @@
 
             _angleBetaLabelLabel = new Label()
             {
-                Text = "Angle beta label:",
+                Text = "Назв. угла бета:",
                 AutoSize = true,
                 Location = new Point(10, _angleBetaArcLabel.Bottom + 10)
             };
@@ -158,7 +158,7 @@
 
             _rightAngleRectLabel = new Label()
             {
-                Text = "Right angle rect.:",
+                Text = "Прямой угол:",
                 AutoSize = true,
                 Location = new Point(10, _angleBetaLabelInput.Bottom + 10)
             };
@@ -174,7 +174,7 @@
 
             _rightAngleLabelLabel = new Label()
             {
-                Text = "Right angle label:",
+                Text = "Назв. прямого угла:",
                 AutoSize = true,
                 Location = new Point(10, _rightAngleRectLabel.Bottom + 10)
             };
@@ -191,7 +191,7 @@
 
             _adjacentLegLabelLabel = new Label()
             {
-                Text = "Adjacent leg label:",
+                Text = "Назв. прил. катета:",
                 AutoSize = true,
                 Location = new Point(150, 20)
             };
@@ -208,7 +208,7 @@
 
             _oppositeLegLabelLabel = new Label()
             {
-                Text = "Opposite leg label:",
+                Text = "Назв. прот. катета:",
                 AutoSize = true,
                 Location = new Point(150, _adjacentLegLabelInput.Bottom + 10)
             };
@@ -225,7 +225,7 @@
 
             _hypotenuseLabelLabel = new Label()
             {
-                Text = "Hypotenuse label:",
+                Text = "Назв. гипотенузы:",
                 AutoSize = true,
                 Location = new Point(150, _oppositeLegLabelInput.Bottom + 10)
             };
@@ -242,7 +242,7 @@
 
             _hypotenuseAdjacentLegVertexLabelLabel = new Label()
             {
-                Text = "Hyp. adj. leg vertex label:",
+                Text = "Назв. вершины угла альфа:",
                 AutoSize = true,
                 Location = new Point(150, _hypotenuseLabelInput.Bottom + 10)
             };
@@ -259,7 +259,7 @@
 
             _hypotenuseOppositeLegVertexLabelLabel = new Label()
             {
-                Text = "Hyp. opp. leg vertex label:",
+                Text = "Назв. вершины угла бета:",
                 AutoSize = true,
                 Location = new Point(150, _hypotenuseAdjacentLegVertexLabelInput.Bottom + 10)
             };
@@ -276,7 +276,7 @@
 
             _adjacentLegOppositeLegVertexLabelLabel = new Label()
             {
-                Text = "Adj. leg opp. leg vertex label:",
+                Text = "Назв. вершины прямого угла:",
                 AutoSize = true,
                 Location = new Point(150, _hypotenuseOppositeLegVertexLabelInput.Bottom + 10)
             };
@@ -293,13 +293,13 @@
 
             _labelFontLabel = new Label()
             {
-                Text = "Label font:",
+                Text = "Шрифт надписей:",
                 AutoSize = true,
                 Location = new Point(270, 20)
             };
             _labelFontInput = new Button()
             {
-                Text = "Select",
+                Text = "Выбрать",
                 AutoSize = true,
                 Location = new Point(270, _labelFontLabel.Bottom)
             };
@@ -309,7 +309,7 @@
 
             _lineThicknessLabel = new Label()
             {
-                Text = "Line thickness:",
+                Text = "Толщина линий:",
                 AutoSize = true,
                 Location = new Point(270, _labelFontInput.Bottom)
             };
@@ -327,7 +327,7 @@
 
             _sizeLabel = new Label()
             {
-                Text = "Drawing size:",
+                Text = "Размер чертежа:",
                 AutoSize = true,
                 Location = new Point(270, _lineThicknessInput.Bottom)
             };
@@ -345,7 +345,7 @@
 
             _resetButton = new Button()
             {
-                Text = "Reset to defaults",
+                Text = "Настройки по-умолчанию",
                 AutoSize = true,
                 Location = new Point(270, _sizeInput.Bottom)
             };

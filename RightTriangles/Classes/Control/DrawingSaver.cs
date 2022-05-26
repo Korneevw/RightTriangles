@@ -12,8 +12,8 @@
                     drawer.DrawInRatios(data, g, new Point(150, 150));
                 }
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "Pictures|*.png";
-                saveFileDialog.Title = "Select a location to save the drawing";
+                saveFileDialog.Filter = "Картинки|*.png";
+                saveFileDialog.Title = "Выберите расположение файла";
                 saveFileDialog.ShowDialog();
                 if (saveFileDialog.FileName != "")
                 {

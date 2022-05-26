@@ -30,7 +30,7 @@
             {
                 Width = 100,
                 Height = 25,
-                Text = "Save drawing"
+                Text = "Сохранить"
             };
             _saveButton.Click += (s, e) => { if (Validator.Validate(Data) == true) Saver.Save(Data, Drawer); };
             Controls.Add(_saveButton);
@@ -40,7 +40,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Text = "Drawing";
+            Text = "Чертёж";
         }
         public void ChangeSize()
         {

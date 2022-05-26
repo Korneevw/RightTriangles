@@ -45,7 +45,7 @@
             MinimizeBox = false;
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Text = "Right Triangle Builder";
+            Text = "Прямоугольные треугольники";
         }
 
         private void ResetButtonClick()

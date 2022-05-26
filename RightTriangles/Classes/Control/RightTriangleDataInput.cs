@@ -24,13 +24,13 @@
 
             _groupBox = new GroupBox()
             {
-                Text = "Inputs",
+                Text = "Ввод",
                 Location = new Point(startingPoint.X, startingPoint.Y),
             };
 
             _hypotenuseInputLabel = new Label()
             {
-                Text = "Hypotenuse:",
+                Text = "Гипотенуза:",
                 Width = 100,
                 Height = 20,
                 Location = new Point(10, 20),
@@ -48,7 +48,7 @@
 
             _adjacentLegInputLabel = new Label()
             {
-                Text = "Adjacent leg:",
+                Text = "Прил. катет:",
                 Width = 100,
                 Height = 20,
                 Location = new Point(_hypotenuseInputLabel.Left, _hypotenuseInput.Bottom + 10),
@@ -66,7 +66,7 @@
 
             _oppositeLegInputLabel = new Label()
             {
-                Text = "Opposite leg:",
+                Text = "Прот. катет:",
                 Width = 100,
                 Height = 20,
                 Location = new Point(_hypotenuseInputLabel.Left, _adjacentLegInput.Bottom + 10),
@@ -84,7 +84,7 @@
 
             _angleAlphaInputLabel = new Label()
             {
-                Text = "Angle:",
+                Text = "Угол:",
                 Width = 100,
                 Height = 20,
                 Location = new Point(_hypotenuseInputLabel.Left, _oppositeLegInput.Bottom + 10),
@@ -102,7 +102,7 @@
 
             _resetButton = new Button()
             {
-                Text = "Reset",
+                Text = "Сбросить",
                 Width = 100,
                 Location = new Point(_hypotenuseInputLabel.Left, _angleAlphaInput.Bottom + 10)
             };

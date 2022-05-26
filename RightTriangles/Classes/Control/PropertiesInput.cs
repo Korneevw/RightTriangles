@@ -18,14 +18,14 @@
         {
             _groupBox = new GroupBox()
             {
-                Text = "Properties",
+                Text = "Параметры",
                 Width = 120,
                 Height = 130,
                 Location = new Point(startingPoint.X, startingPoint.Y),
             };
             _decimalAccuracyInputLabel = new Label()
             {
-                Text = "Fraction accuracy:",
+                Text = "Точность дробей:",
                 Width = 110,
                 Height = 20,
                 Location = new Point(10, 20)
@@ -44,7 +44,7 @@
 
             _incrementInputLabel = new Label()
             {
-                Text = "Value increment:",
+                Text = "Инкремент:",
                 Width = 100,
                 Height = 20,
                 Location = new Point(_decimalAccuracyInputLabel.Left, _decimalAccuracyInput.Bottom + 10)
